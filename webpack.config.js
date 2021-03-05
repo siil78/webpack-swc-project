@@ -24,7 +24,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
@@ -34,6 +34,10 @@ module.exports = {
   },
 
   plugins: [new MiniCssExtractPlugin()],
+  //podpora pro jsx soubory
+  resolve: {
+    extensions: [".js", ".jsx"],
+  },
   devtool: "source-map",
   devServer: {
     //jaký adresář načíst při webpack serve
