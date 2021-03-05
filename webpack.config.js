@@ -1,17 +1,21 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 let mode = "development";
+//pro opravu bugu, kdy se u devServeru nefunguje live reloading
+let target = "web";
 
 if (process.env.NODE_ENV == "production") {
   mode = "production";
+  target = "browserslist";
 }
 
 module.exports = {
   mode: mode,
+  target: target,
 
   module: {
     rules: [
       {
-        test: /\.s?css$/i,
+        test: /\.(s[ac]|c)ss$/i,
         use: [
           MiniCssExtractPlugin.loader,
           "css-loader",
