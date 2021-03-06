@@ -12,8 +12,29 @@ module.exports = {
   mode: mode,
   target: target,
 
+  //nastavení cesty pro obrázky
+  output: {
+    assetModuleFilename: "images/[hash][ext][query]",
+  },
+
   module: {
     rules: [
+      {
+        //zajistí zkopírování obrázků do dist adresáře a jejich správnou cestu ve zkompilovaném kodu
+        test: /\.(png|jpe?g|gif|svg)/i,
+        //zkopíruje obrázky do dist adresáře
+        //type: "asset/resource",
+        //asset/inline zkompiluje obrázky přímo do main.js kodu, hodí se pro malé ikony atd
+        //type: "asset/inline",
+        //webpack rozhodne mezi inline nebo resource
+        type: "asset",
+        // //parser umožňuje nastavit, jakou velikost ještě kompilovat do inline js
+        // parser: {
+        //   dataUrlCondition: {
+        //     maxSize: 30 * 1024,
+        //   },
+        // },
+      },
       {
         test: /\.(s[ac]|c)ss$/i,
         use: [

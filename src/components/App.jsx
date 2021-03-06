@@ -1,18 +1,22 @@
 import "../styles/index.scss";
-import Recipes from "./Recipes"
+import Recipes from "./Recipes";
+import sword from "../images/swc-sword.png"
+import swordSvg from "../images/sword.svg"
 
 function App() {
   return (
     <>
-    <section className="hero">
       <main>
-        <section>
-          <h1>React App component</h1>
+          <section>
+            <h1>React App component</h1>
+          </section>
+        <section className="hero">
         </section>
-      </main>
-    </section>
+        <img src={sword} alt="sword" width="250"/>
+        <img src={swordSvg} alt="sword" width="250"/>
 
-    <Recipes/>
+        <Recipes/>
+      </main>
     </>
   )
 }
