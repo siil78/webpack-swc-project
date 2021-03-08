@@ -1,4 +1,10 @@
+const path = require("path");
+//plugin vytvoří samostatný css soubor
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+//plugin do dist adresáře zahrnte i index.html, pokud je v src adresáři
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+
 let mode = "development";
 //pro opravu bugu, kdy se u devServeru nefunguje live reloading
 let target = "web";
@@ -14,6 +20,8 @@ module.exports = {
 
   //nastavení cesty pro obrázky
   output: {
+    //definice výstupního adresáře kompilovaného projektu
+    path: path.resolve(__dirname, "dist"),
     assetModuleFilename: "images/[hash][ext][query]",
   },
 
@@ -54,7 +62,11 @@ module.exports = {
     ],
   },
 
-  plugins: [new MiniCssExtractPlugin()],
+  plugins: [
+    new CleanWebpackPlugin(),
+    new MiniCssExtractPlugin(),
+    new HtmlWebpackPlugin({ template: "./src/index.html" }),
+  ],
   //podpora pro jsx soubory
   resolve: {
     extensions: [".js", ".jsx"],
