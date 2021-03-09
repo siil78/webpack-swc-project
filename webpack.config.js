@@ -4,19 +4,31 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 //plugin do dist adresáře zahrnte i index.html, pokud je v src adresáři
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 
 let mode = "development";
 //pro opravu bugu, kdy se u devServeru nefunguje live reloading
 let target = "web";
+const plugins = [
+  new CleanWebpackPlugin(),
+  new MiniCssExtractPlugin(),
+  new HtmlWebpackPlugin({ template: "./src/index.html" }),
+];
 
 if (process.env.NODE_ENV == "production") {
   mode = "production";
   target = "browserslist";
 }
 
+if (process.env.SERVE) {
+  plugins.push(new ReactRefreshWebpackPlugin());
+}
+
 module.exports = {
   mode: mode,
   target: target,
+  //definováno kvůli funkčnosti ReactRefreshWebpackPluginu
+  entry: "./src/index.js",
 
   //nastavení cesty pro obrázky
   output: {
@@ -62,11 +74,7 @@ module.exports = {
     ],
   },
 
-  plugins: [
-    new CleanWebpackPlugin(),
-    new MiniCssExtractPlugin(),
-    new HtmlWebpackPlugin({ template: "./src/index.html" }),
-  ],
+  plugins: plugins,
   //podpora pro jsx soubory
   resolve: {
     extensions: [".js", ".jsx"],
